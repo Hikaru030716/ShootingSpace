@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
+        if(Input.GetKey(KeyCode.Space)  && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -47,9 +47,9 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = movement * speed;
 
         rb.position = new Vector3(
-            Mathf.Clamp(rb.position.x,boundary.xMin,boundary.xMax),
+            Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
             0.0f,
-            Mathf.Clamp(rb.position.z,boundary.zMin,boundary.zMax)
+            Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
          );
 
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -titl);

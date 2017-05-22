@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour {
     public Transform shotSpawn;
 
     public float fireRate;
-
+//    public TouchPad touchPad;
     private float nextFire;
+    private Quaternion calibrationQuaternion;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space)  && Time.time > nextFire)
+        if(Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -38,21 +39,56 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void CalibrateAccellerometer()
+    {
+        Vector3 accelerationSnapshot = Input.acceleration;
+        Quaternion rotateQuaternion = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, -1.0f), accelerationSnapshot);
+        calibrationQuaternion = Quaternion.Inverse(rotateQuaternion);
+    }
+
+    Vector3 FixAccelleration(Vector3 acceleration)
+    {
+        Vector3 fixedAcceleration = calibrationQuaternion * acceleration;
+        return fixedAcceleration;
+    }
+
+
     private void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        //float moveHorizontal = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
+        //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.velocity = movement * speed;
+        //Vector3 accelerationRaw = Input.acceleration;
+        //Vector3 acceleration = FixAccelleration(accelerationRaw);
+        //Vector3 movement = new Vector3(acceleration.x, 0.0f, acceleration.y);
+        //Vector2 direction = touchPad.GetDirection();
+        //Vector3 movement = new Vector3(direction.x, 0.0f, direction.y);
 
-        rb.position = new Vector3(
-            Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
-            0.0f,
-            Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
-         );
+        //rb.velocity = movement * speed;
 
-        rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -titl);
+        //rb.position = new Vector3(
+        //    Mathf.Clamp(rb.position.x, 0, 1),
+        //    0.0f,
+        //    Mathf.Clamp(rb.position.z, 0, 1)
+        // );
+        if (Input.GetMouseButton(0)) { 
+            Vector3 min = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, -6.0f));
+            Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f, 0));
+
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            pos = new Vector3(Mathf.Clamp(pos.x,min.x,max.x),0, Mathf.Clamp(pos.z + 2.0f, min.z, max.z));
+
+            //pos.x = Mathf.Clamp(pos.x, min.x, max.x);
+            //pos.z = Mathf.Clamp(pos.z, min.z, max.z);
+
+            //transform.position = Vector3.Lerp(transform.position, pos, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, pos, speed * Time.deltaTime);
+
+            rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -titl);
+        }
     }
+
 
 }

@@ -15,8 +15,9 @@ public class GameController : MonoBehaviour {
 
     public Text scoreText;
     private int score;
-    public Text restartText;
+    //public Text restartText;
     public Text gameOverText;
+    public GameObject restartButton;
 
     private bool gameOver;
     private bool restart;
@@ -25,23 +26,24 @@ public class GameController : MonoBehaviour {
     {
         gameOver = false;
         restart = false;
-        restartText.text = "";
+        //restartText.text = "";
+        restartButton.SetActive(false);
         gameOverText.text = "";
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
     }
 
-    private void Update()
-    {
-        if (restart)
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene("Main");
-            }
-        }
-    }
+    //private void Update()
+    //{
+    //    if (restart)
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.R))
+    //        {
+    //            SceneManager.LoadScene("Main");
+    //        }
+    //    }
+    //}
 
     IEnumerator SpawnWaves()
     {
@@ -51,7 +53,9 @@ public class GameController : MonoBehaviour {
             for (int i = 0; i < hazardCount; i++)
             {
                 GameObject hazard = hazards[Random.Range(0,hazards.Length)];
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValue.x, spawnValue.x), spawnValue.y, spawnValue.z);
+                Vector3 min = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+                Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(1, 1.05f, -0.05f));
+                Vector3 spawnPosition = new Vector3(Random.Range(min.x,max.x), 0, max.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
@@ -60,7 +64,8 @@ public class GameController : MonoBehaviour {
 
             if (gameOver)
             {
-                restartText.text = "Press 'R' for Restart";
+                //restartText.text = "Press 'R' for Restart";
+                restartButton.SetActive(true);
                 restart = true;
                 break;
             }
@@ -84,5 +89,10 @@ public class GameController : MonoBehaviour {
     {
         gameOverText.text = "Game Over";
         gameOver = true;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Main");
     }
 }

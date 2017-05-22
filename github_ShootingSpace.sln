@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "github_ShootingSpace", "github_ShootingSpace.csproj", "{B2C3685B-1EF1-741E-3597-13AFAC40278F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "github_ShootingSpace.Editor", "github_ShootingSpace.Editor.csproj", "{CA123EE9-C83E-0D3D-1353-41D56D69FC41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2C3685B-1EF1-741E-3597-13AFAC40278F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C3685B-1EF1-741E-3597-13AFAC40278F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C3685B-1EF1-741E-3597-13AFAC40278F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C3685B-1EF1-741E-3597-13AFAC40278F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA123EE9-C83E-0D3D-1353-41D56D69FC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA123EE9-C83E-0D3D-1353-41D56D69FC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA123EE9-C83E-0D3D-1353-41D56D69FC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA123EE9-C83E-0D3D-1353-41D56D69FC41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

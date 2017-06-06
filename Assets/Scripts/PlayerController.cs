@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject shot;
     public Transform shotSpawn;
+    public Transform shotSpawn2;
+    public Transform shotSpawn3;
+    public Transform shotSpawn4;
 
     public float fireRate;
 //    public TouchPad touchPad;
@@ -35,6 +38,9 @@ public class PlayerController : MonoBehaviour {
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            Instantiate(shot, shotSpawn2.position, shotSpawn.rotation);
+            Instantiate(shot, shotSpawn3.position, shotSpawn.rotation);
+            Instantiate(shot, shotSpawn4.position, shotSpawn.rotation);
             audio.Play();
         }
     }
